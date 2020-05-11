@@ -32,7 +32,7 @@ usuários do Web GIS visualizem e naveguem pelas imagens sem precisar baixá-las
 ### Ambiente de Desenvolvimento
 ```
 # Crie um novo ambiente conda com Python3+
-$ conda create --name python-cnn python=3.5
+$ conda create --name python-cnn python=3.6.9
 
 # Ativar o ambiente
 $ conda activate python-cnn
@@ -41,7 +41,7 @@ $ conda activate python-cnn
 (python-cnn) $ conda install notebook ipykernel
 
 # Com o ipykernel criar um kernel com o python 3.5 automático
-(python-cnn) $ ipython kernel install --user
+(python-cnn) $ ipython kernel install --user --name python-cnn
 
 # Instalar o servidor Jupyter Lab
 (python-cnn) $ python -m pip install jupyter
@@ -49,12 +49,11 @@ $ conda activate python-cnn
 # Instalar a biblioteca gdal e basemap para processar as imagens
 (python-cnn) $ conda install -c conda-forge gdal=2.4.4
 
-# Instalar a biblioteca gdal e basemap para processar as imagens
-(python-cnn) $ conda install basemap
-
 # Executar o servidor em modo de desenvolvimento
 (python-cnn) $ jupyter notebook
 ```
+
+> **Obs.:** Pode ser que o Notebook não  reconheça o kernel instalado pelo conda, sendo assim você pode alterar manualmente `kernel >> Change Kernel >> python-cnn`.
 
 ### Ambiente de micro serviços em docker
 ```
@@ -63,7 +62,10 @@ $ conda activate python-cnn
 
 ### Código fonte
 
+> Também será necessário acesso ao [servidor FTP](http://www.dpi.inpe.br/agricultural-database/lem/dados/cenas/Sentinel1/).
+
 > Para a execução do código fonte abaixo é necessário o download da pasta [`data/`](https://fatecspgov-my.sharepoint.com/:f:/g/personal/abner_anjos_fatec_sp_gov_br/EqcawzIRy5VBhi7LqlXGtpgB-DHpZq5IG1DspKuwD59YBA?e=4LEDNC), após o download descompacte na pasta root do projeto.
+
 
 ```
 data/
@@ -75,7 +77,7 @@ data/
 
 
 ```python
-!pip install tensorflow matplotlib georaster
+# !pip install tensorflow matplotlib pillow wget
 ```
 
 
@@ -89,25 +91,65 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Conv2D, Flatten, Dropout, MaxPooling2D
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
-import os
 import numpy as np
 import matplotlib.pyplot as plt
-import requests
-import georaster as gr
+
+from services.georasters import Georaster as gr
 ```
 
 
 ```python
-base_url = "http://www.dpi.inpe.br/agricultural-database/lem/dados/cenas/Sentinel1"
-sentinel1a = "/20170612_S1A"
-sentinel1b = "/20170612_S1A"
+# clip_20170612T083546_Sigma0_VH_db
+# getGeoRaster(self, date, band, file=False, download=True, convert=True):
+data = gr('/home/abner').getGeoRaster('2017-06-12 08h:35m:46s','vh', file=False, download=True, convert=True)
 ```
 
 
 ```python
-test = base_url + sentinel1a + "/clip_20170612T083546_Sigma0_VH_db.tif"
-data = gr.from_file(raster)
-
-# Plot data
-data.plot()
+data.get("image/jpg")
 ```
+
+
+
+<p align = "center">
+  <img width = "600px" src = "./docs/assets/output_5_0.png">
+</p>
+
+
+
+
+```python
+data.get("georaster").GetProjection()
+```
+
+
+
+
+    'PROJCS["WGS 84 / UTM zone 23S",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",-45],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",10000000],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],AUTHORITY["EPSG","32723"]]'
+
+
+
+
+```python
+data.get("georaster").GetMetadata()
+```
+
+
+
+
+    {'AREA_OR_POINT': 'Area'}
+
+
+
+
+```python
+band = data.get("georaster").GetRasterBand(1)
+band
+```
+
+
+
+
+    <osgeo.gdal.Band; proxy of <Swig Object of type 'GDALRasterBandShadow *' at 0x7f120b5ad540> >
+
+
