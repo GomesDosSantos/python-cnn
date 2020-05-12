@@ -86,7 +86,7 @@ class Georaster:
                     "path" : 'data/input/train',
                     "datetime" : data_datetime,
                     "georaster" : gdal.Open(file + '.tif'),
-                    "image/jpg" : mpimg.imread(file + '.jpg')
+                    "image/jpg" : Image.open('data/input/train' + mask + '.jpg')
                 }
             else:
                 return {
