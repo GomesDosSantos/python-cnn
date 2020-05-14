@@ -31,6 +31,10 @@ usuários do Web GIS visualizem e naveguem pelas imagens sem precisar baixá-las
 
 ### Ambiente de Desenvolvimento
 ```
+# Montar no ambiente Linux
+$ sudo apt-get update
+$ sudo apt-get install python-numpy gdal-bin libgdal-dev
+
 # Crie um novo ambiente conda com Python3+
 $ conda create --name python-cnn python=3.6.9
 
@@ -77,7 +81,7 @@ data/
 
 
 ```python
-# !pip install tensorflow matplotlib pillow wget
+!pip install tensorflow matplotlib pillow wget rasterio
 ```
 
 
@@ -94,62 +98,87 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import numpy as np
 import matplotlib.pyplot as plt
 
-from services.georasters import Georaster as gr
+from services.georasters import Georaster
 ```
 
 
 ```python
 # clip_20170612T083546_Sigma0_VH_db
 # getGeoRaster(self, date, band, file=False, download=True, convert=True):
-data = gr('/home/abner').getGeoRaster('2017-06-12 08h:35m:46s','vh', file=False, download=True, convert=True)
+data = Georaster('2017-06-12 08h:35m:46s','vh', 4326)
 ```
 
 
 ```python
-data.get("image/jpg")
+data.openRemoteFile()
 ```
 
 
+
+
+    True
+
+
+
+
+```python
+data.projection
+```
+
+
+
+
+    'EPSG:4326'
+
+
+
+
+```python
+data.downloadRemoteFile()
+```
+
+
+
+
+    True
+
+
+
+
+```python
+data.convertFileToJPG()
+```
+
+
+
+
+    True
+
+
+
+
+```python
+data.georaster.read(1)
+```
+
+
+
+
+    array([[nan, nan, nan, ..., nan, nan, nan],
+           [nan, nan, nan, ..., nan, nan, nan],
+           [nan, nan, nan, ..., nan, nan, nan],
+           ...,
+           [nan, nan, nan, ..., nan, nan, nan],
+           [nan, nan, nan, ..., nan, nan, nan],
+           [nan, nan, nan, ..., nan, nan, nan]], dtype=float32)
+
+
+
+
+```python
+data.jpg
+```
 
 <p align = "center">
-  <img width = "600px" src = "./docs/assets/output_5_0.png">
+  <img width = "600px" src = "./docs/assets/output_10_0.png">
 </p>
-
-
-
-
-```python
-data.get("georaster").GetProjection()
-```
-
-
-
-
-    'PROJCS["WGS 84 / UTM zone 23S",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",-45],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",10000000],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],AUTHORITY["EPSG","32723"]]'
-
-
-
-
-```python
-data.get("georaster").GetMetadata()
-```
-
-
-
-
-    {'AREA_OR_POINT': 'Area'}
-
-
-
-
-```python
-band = data.get("georaster").GetRasterBand(1)
-band
-```
-
-
-
-
-    <osgeo.gdal.Band; proxy of <Swig Object of type 'GDALRasterBandShadow *' at 0x7f120b5ad540> >
-
-
