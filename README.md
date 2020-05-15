@@ -51,7 +51,7 @@ $ conda activate python-cnn
 (python-cnn) $ python -m pip install jupyter
 
 # Instalar a biblioteca gdal e basemap para processar as imagens
-(python-cnn) $ conda install -c conda-forge gdal=2.4.4
+(python-cnn) $ conda install -c conda-forge gdal=2.4.4 decartes
 
 # Executar o servidor em modo de desenvolvimento
 (python-cnn) $ jupyter notebook
@@ -81,7 +81,7 @@ data/
 
 
 ```python
-!pip install tensorflow matplotlib pillow wget rasterio
+# !pip install tensorflow numpy matplotlib pillow wget rasterio geopandas
 ```
 
 
@@ -97,14 +97,17 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 import numpy as np
 import matplotlib.pyplot as plt
-
-from services.georasters import Georaster
 ```
 
 
 ```python
-# clip_20170612T083546_Sigma0_VH_db
-# getGeoRaster(self, date, band, file=False, download=True, convert=True):
+# Abstração das buscas por polígonos e georasters
+from services.georasters import Georaster
+from services.vector import Vector
+```
+
+
+```python
 data = Georaster('2017-06-12 08h:35m:46s','vh', 4326)
 ```
 
@@ -180,5 +183,297 @@ data.jpg
 ```
 
 <p align = "center">
-  <img width = "600px" src = "./docs/assets/output_10_0.png">
+  <img width = "600px" src = "./docs/assets/output_11_0.png">
+</p>
+
+
+```python
+for coords in data.geom.get('coordinates'):
+    for coord in coords:
+        print(data.georaster.read(1)[int(coord[1])][int(coord[0])])
+```
+
+    -18.735785
+    -19.409836
+    -20.503849
+    -17.980326
+    -18.735785
+
+
+
+```python
+shapes = Vector(4326)
+```
+
+
+```python
+data.geom
+```
+
+
+```python
+data_geom = shapes.shape(data.geom.get('coordinates')[0])
+data_geom
+```
+
+
+<p align = "center">
+  <img width = "100px" src = "./docs/assets/output_15_0.svg">
+</p>
+
+
+
+```python
+data.geom
+```
+
+
+
+
+    {'type': 'Polygon',
+     'coordinates': [[[-46.422421, -11.831513],
+       [-46.426524, -12.598503],
+       [-45.629512, -12.601568],
+       [-45.627701, -11.834385],
+       [-46.422421, -11.831513]]]}
+
+
+
+
+```python
+shapes.lem.head(5)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>NM_MUNICIP</th>
+      <th>CD_GEOCMU</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>LUÃS EDUARDO MAGALHÃES</td>
+      <td>2919553</td>
+      <td>POLYGON ((-45.71038 -12.39706, -45.71422 -12.3...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+shapes.covers.head(5)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Id</th>
+      <th>area_ha</th>
+      <th>Jun_2017</th>
+      <th>Jul_2017</th>
+      <th>Aug_2017</th>
+      <th>Sep_2017</th>
+      <th>Oct_2017</th>
+      <th>Nov_2017</th>
+      <th>Dec_2017</th>
+      <th>Jan_2018</th>
+      <th>Feb_2018</th>
+      <th>Mar_2018</th>
+      <th>Apr_2018</th>
+      <th>May_2018</th>
+      <th>Jun_2018</th>
+      <th>Geral</th>
+      <th>variacao</th>
+      <th>var</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>341.632515</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>soybean</td>
+      <td>soybean</td>
+      <td>soybean</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>xxxxxxxsssxxx</td>
+      <td>xsx</td>
+      <td>s</td>
+      <td>POLYGON ((391870.392 8678209.011, 390327.395 8...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>523</td>
+      <td>148.290258</td>
+      <td>millet</td>
+      <td>millet</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>not identified</td>
+      <td>uncultivated soil</td>
+      <td>not identified</td>
+      <td>not identified</td>
+      <td>uncultivated soil</td>
+      <td>millet</td>
+      <td>millet</td>
+      <td>uncultivated soil</td>
+      <td>llxxx-x--xllx</td>
+      <td>lxlx</td>
+      <td>ll</td>
+      <td>POLYGON ((362953.448 8648254.537, 362492.885 8...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>196.784309</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>soybean</td>
+      <td>soybean</td>
+      <td>soybean</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>xxxxxxxsssxxx</td>
+      <td>xsx</td>
+      <td>s</td>
+      <td>POLYGON ((394667.970 8677930.309, 394381.632 8...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>524</td>
+      <td>28.625248</td>
+      <td>sorghum</td>
+      <td>sorghum</td>
+      <td>sorghum</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>soybean</td>
+      <td>soybean</td>
+      <td>soybean</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>zzzxxxxsssxxx</td>
+      <td>zxsx</td>
+      <td>zs</td>
+      <td>POLYGON ((378784.772 8650768.854, 378340.528 8...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>6</td>
+      <td>369.452478</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>soybean</td>
+      <td>soybean</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>uncultivated soil</td>
+      <td>xxxxxxxxssxxx</td>
+      <td>xsx</td>
+      <td>s</td>
+      <td>POLYGON ((398795.097 8680743.662, 398796.144 8...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+shapes.lem.plot(color = 'black', edgecolor = 'black', figsize = (8, 8))
+```
+
+
+
+
+    <matplotlib.axes._subplots.AxesSubplot at 0x7ff1c3878358>
+
+
+
+<p align = "center">
+  <img width = "500px" src = "./docs/assets/output_19_1.png">
+</p>
+
+
+```python
+shapes.covers.plot(color = 'white', edgecolor = 'black', figsize = (8, 8))
+```
+
+
+
+
+    <matplotlib.axes._subplots.AxesSubplot at 0x7ff135251be0>
+
+
+<p align = "center">
+  <img width = "500px" src = "./docs/assets/output_20_1.png">
 </p>

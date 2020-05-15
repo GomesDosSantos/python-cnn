@@ -45,29 +45,26 @@ class Georaster:
         self.jpg = None
 
     def openRemoteFile(self):
-        # try:
-        if True:
+        try:
             self.georaster = rasterio.open('/vsicurl/{}'.format(self.base))
             mask = self.georaster.dataset_mask()
-            self.geom = []
             for geom, val in rasterio.features.shapes(mask, transform=self.georaster.transform):
-                self.geom.append(rasterio.warp.transform_geom(self.georaster.crs, self.projection, geom, precision=6))
+                self.geom = rasterio.warp.transform_geom(self.georaster.crs, self.projection, geom, precision=6)
             return True
-        # except:
-            # return False
+        except:
+            return False
 
     def downloadRemoteFile(self):
         file = self.path + self.mask + ".tif"
-        # try:
-        if True:
+        try:
             wget.download(
                 self.base,
                 file
             )
             self.geotiff_path = file
             return True
-        # except:
-        #     return False
+        except:
+            return False
 
     def convertFileToJPG(self):
         options_list = [
@@ -94,8 +91,7 @@ class Georaster:
         try:
             self.georaster = rasterio.open(self.mask + '.tif')
             mask = self.georaster.dataset_mask()
-            self.geom = []
             for geom, val in rasterio.features.shapes(mask, transform=self.georaster.transform):
-                self.geom.append(rasterio.warp.transform_geom(self.georaster.crs, self.projection, geom, precision=6))
+                self.geom = rasterio.warp.transform_geom(self.georaster.crs, self.projection, geom, precision=6)
         except:
             return False
