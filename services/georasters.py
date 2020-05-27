@@ -87,6 +87,25 @@ class Georaster:
         except:
             return False
 
+    def convertAnyFileToJPG(self, path):
+        options_list = [
+            '-ot Byte',
+            '-of JPEG',
+            '-b 1',
+            '-scale'
+        ]
+        options_string = " ".join(options_list)
+        root = os.path.dirname(os.path.abspath('georasters'))
+        try:
+            gdal.Translate(
+                root + "/" + path + '.jpg',
+                root + "/" + path + '.tif',
+                options=options_string
+            )
+            return True
+        except:
+            return False
+
     def openLocalFile(self):
         try:
             self.georaster = rasterio.open(self.mask + '.tif')
