@@ -131,3 +131,7 @@ dmypy.json
 # Load Data
 data/
 basemap/
+
+# Editores
+.vscode
+
