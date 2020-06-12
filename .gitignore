@@ -131,3 +131,6 @@ dmypy.json
 # Load Data
 data/
 basemap/
+
+# Zip
+*.zip
