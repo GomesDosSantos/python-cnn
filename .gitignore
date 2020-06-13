@@ -135,3 +135,5 @@ basemap/
 # Editores
 .vscode
 
+# Zip
+*.zip

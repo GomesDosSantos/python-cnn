@@ -78,7 +78,7 @@ $ docker run --name jupyter-python-cnn-docker -p 8890:8888 -d jupyter-python-cnn
 
 - [Landsat-8 Data](http://www.dpi.inpe.br/obt/agricultural-database/lem/dados/cenas/Landsat8);
 
-> Para a execução do código fonte abaixo é necessário o download da pasta [`data/`](https://fatecspgov-my.sharepoint.com/:f:/g/personal/abner_anjos_fatec_sp_gov_br/EqcawzIRy5VBhi7LqlXGtpgB-DHpZq5IG1DspKuwD59YBA?e=4LEDNC), após o download descompacte na pasta root do projeto.
+> Para a execução do código fonte abaixo é necessário o download da pasta [`data/`](https://fatecspgov-my.sharepoint.com/:u:/g/personal/abner_anjos_fatec_sp_gov_br/EaRDNhpRDGJMmSXc-AtoTDgBkG3G5tGBPvsdJBkeEOMSNw?e=fzM3V9), após o download descompacte na pasta root do projeto.
 
 
 ```
