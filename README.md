@@ -29,7 +29,8 @@ usuários do Web GIS visualizem e naveguem pelas imagens sem precisar baixá-las
 
 **Obs.:** Instalação do Miniconda é necessária para a execução dos comandos a seguir.
 
-### Ambiente de Desenvolvimento
+## Ambiente de Desenvolvimento
+
 ```
 # Montar no ambiente Linux
 $ sudo apt-get update
@@ -59,7 +60,8 @@ $ conda activate python-cnn
 
 > **Obs.:** Pode ser que o Notebook não  reconheça o kernel instalado pelo conda, sendo assim você pode alterar manualmente `kernel >> Change Kernel >> python-cnn`.
 
-### Ambiente de micro serviços em docker
+## Ambiente de micro serviços em docker
+
 ```
 # Construir a imagem Docker
 $ docker build -t jupyter-python-cnn .
@@ -68,7 +70,7 @@ $ docker build -t jupyter-python-cnn .
 $ docker run --name jupyter-python-cnn-docker -p 8890:8888 -d jupyter-python-cnn
 ```
 
-### Código fonte
+## Código fonte
 
 > Também será necessário acesso ao servidores FTP:
 
