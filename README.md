@@ -205,7 +205,6 @@ data.jpg
 
 
 
-
 <p align = "center">
   <img width = "600px" src = "./docs/assets/output_12_0.png">
 </p>
@@ -234,6 +233,18 @@ shapes = Vector(4326)
 ```python
 data.geom
 ```
+
+
+
+
+    {'type': 'Polygon',
+     'coordinates': [[[-46.422421, -11.831513],
+       [-46.426524, -12.598503],
+       [-45.629512, -12.601568],
+       [-45.627701, -11.834385],
+       [-46.422421, -11.831513]]]}
+
+
 
 
 ```python
@@ -482,7 +493,7 @@ shapes.lem.plot(color = 'black', edgecolor = 'black', figsize = (8, 8))
 
 
 
-    <matplotlib.axes._subplots.AxesSubplot at 0x7ff1c3878358>
+    <matplotlib.axes._subplots.AxesSubplot at 0x7f7440b11a20>
 
 
 
@@ -499,8 +510,7 @@ shapes.covers.plot(color = 'white', edgecolor = 'black', figsize = (8, 8))
 
 
 
-    <matplotlib.axes._subplots.AxesSubplot at 0x7ff135251be0>
-
+    <matplotlib.axes._subplots.AxesSubplot at 0x7f7440ab0438>
 
 
 
@@ -509,22 +519,45 @@ shapes.covers.plot(color = 'white', edgecolor = 'black', figsize = (8, 8))
 </p>
 
 
+
 ```python
 !ls -l data/input/train/true
 ```
 
-    total 1696536
-    -rw-r--r-- 1 abner abner 117589085 jun  4  2018 image10.tif
-    -rw-r--r-- 1 abner abner  58825766 jun  4  2018 image11.tif
-    -rw-r--r-- 1 abner abner 228341788 mai 14 11:18 image1.tif
-    -rw-rw-r-- 1 abner abner 231710599 mai 27 07:59 image2.tif
-    -rw-r--r-- 1 abner abner 228918854 mai 11 17:15 image3.tif
-    -rw-rw-r-- 1 abner abner 231557786 mai 11 10:27 image4.tif
-    -rw-rw-r-- 1 abner abner 228275958 mai 11 10:27 image5.tif
-    -rw-r--r-- 1 abner abner 117743705 jun  4  2018 image6.tif
-    -rw-r--r-- 1 abner abner 117743683 jun  4  2018 image7.tif
-    -rw-r--r-- 1 abner abner  58903076 jun  4  2018 image8.tif
-    -rw-r--r-- 1 abner abner 117589063 jun  4  2018 image9.tif
+    total 1751248
+    -rw-r--r-- 1 guilherme guilherme    297819 Jun 12 20:30 image10.jpg
+    -rw-r--r-- 1 guilherme guilherme      1194 Jun 12 20:30 image10.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117589085 Jun  4  2018 image10.tif
+    -rw-r--r-- 1 guilherme guilherme   7300659 Jun 12 20:30 image11.jpg
+    -rw-r--r-- 1 guilherme guilherme      1206 Jun 12 20:30 image11.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme  58825766 Jun  4  2018 image11.tif
+    -rw-r--r-- 1 guilherme guilherme   8297339 Jun 12 20:30 image1.jpg
+    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:30 image1.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 228341788 May 14 11:18 image1.tif
+    -rw-r--r-- 1 guilherme guilherme   8064213 Jun 12 20:30 image2.jpg
+    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:30 image2.jpg.aux.xml
+    -rw-rw-r-- 1 guilherme guilherme 231710599 May 27 07:59 image2.tif
+    -rw-r--r-- 1 guilherme guilherme   9966359 Jun 12 20:30 image3.jpg
+    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:30 image3.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 228918854 May 11 17:15 image3.tif
+    -rw-r--r-- 1 guilherme guilherme   7532849 Jun 12 20:30 image4.jpg
+    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:30 image4.jpg.aux.xml
+    -rw-rw-r-- 1 guilherme guilherme 231557786 May 11 10:27 image4.tif
+    -rw-r--r-- 1 guilherme guilherme   7530780 Jun 12 20:30 image5.jpg
+    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:30 image5.jpg.aux.xml
+    -rw-rw-r-- 1 guilherme guilherme 228275958 May 11 10:27 image5.tif
+    -rw-r--r-- 1 guilherme guilherme    295697 Jun 12 20:30 image6.jpg
+    -rw-r--r-- 1 guilherme guilherme      1194 Jun 12 20:30 image6.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117743705 Jun  4  2018 image6.tif
+    -rw-r--r-- 1 guilherme guilherme    274931 Jun 12 20:30 image7.jpg
+    -rw-r--r-- 1 guilherme guilherme      1172 Jun 12 20:30 image7.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117743683 Jun  4  2018 image7.tif
+    -rw-r--r-- 1 guilherme guilherme   6144049 Jun 12 20:30 image8.jpg
+    -rw-r--r-- 1 guilherme guilherme      1206 Jun 12 20:30 image8.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme  58903076 Jun  4  2018 image8.tif
+    -rw-r--r-- 1 guilherme guilherme    273717 Jun 12 20:30 image9.jpg
+    -rw-r--r-- 1 guilherme guilherme      1172 Jun 12 20:30 image9.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117589063 Jun  4  2018 image9.tif
 
 
 
@@ -552,21 +585,49 @@ for i in range(11):
 !ls -l data/input/train/false
 ```
 
-    total 1608788
-    -rw-r--r-- 1 abner abner 117589091 jun  4  2018 image10.tif
-    -rw-r--r-- 1 abner abner 117589091 jun  4  2018 image11.tif
-    -rw-r--r-- 1 abner abner 117589091 jun  4  2018 image12.tif
-    -rw-r--r-- 1 abner abner 117589091 jun  4  2018 image13.tif
-    -rw-r--r-- 1 abner abner 117589091 jun  4  2018 image14.tif
-    -rw-r--r-- 1 abner abner 117743711 jun  4  2018 image1.tif
-    -rw-r--r-- 1 abner abner 117743711 jun  4  2018 image2.tif
-    -rw-r--r-- 1 abner abner 117743711 jun  4  2018 image3.tif
-    -rw-r--r-- 1 abner abner 117743711 jun  4  2018 image4.tif
-    -rw-r--r-- 1 abner abner 117743711 jun  4  2018 image5.tif
-    -rw-r--r-- 1 abner abner 117743711 jun  4  2018 image6.tif
-    -rw-r--r-- 1 abner abner 117743711 jun  4  2018 image7.tif
-    -rw-r--r-- 1 abner abner 117589091 jun  4  2018 image8.tif
-    -rw-r--r-- 1 abner abner 117589091 jun  4  2018 image9.tif
+    total 1651376
+    -rw-r--r-- 1 guilherme guilherme   2871689 Jun 12 20:31 image10.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:31 image10.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image10.tif
+    -rw-r--r-- 1 guilherme guilherme   3782439 Jun 12 20:31 image11.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:31 image11.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image11.tif
+    -rw-r--r-- 1 guilherme guilherme   4025493 Jun 12 20:31 image12.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:31 image12.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image12.tif
+    -rw-r--r-- 1 guilherme guilherme   5155462 Jun 12 20:31 image13.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:31 image13.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image13.tif
+    -rw-r--r-- 1 guilherme guilherme   2997222 Jun 12 20:31 image14.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:31 image14.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image14.tif
+    -rw-r--r-- 1 guilherme guilherme   1965034 Jun 12 20:30 image1.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:30 image1.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image1.tif
+    -rw-r--r-- 1 guilherme guilherme   2143385 Jun 12 20:30 image2.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:30 image2.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image2.tif
+    -rw-r--r-- 1 guilherme guilherme   2847540 Jun 12 20:31 image3.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:31 image3.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image3.tif
+    -rw-r--r-- 1 guilherme guilherme   3999678 Jun 12 20:31 image4.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:31 image4.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image4.tif
+    -rw-r--r-- 1 guilherme guilherme   4058218 Jun 12 20:31 image5.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:31 image5.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image5.tif
+    -rw-r--r-- 1 guilherme guilherme   2764875 Jun 12 20:31 image6.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:31 image6.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image6.tif
+    -rw-r--r-- 1 guilherme guilherme   2331207 Jun 12 20:31 image7.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:31 image7.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image7.tif
+    -rw-r--r-- 1 guilherme guilherme   2215435 Jun 12 20:31 image8.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:31 image8.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image8.tif
+    -rw-r--r-- 1 guilherme guilherme   2387198 Jun 12 20:31 image9.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:31 image9.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image9.tif
 
 
 
@@ -598,25 +659,98 @@ for i in range(14):
 ```
 
     data/input/train:
-    total 1130016
-    -rw-r--r-- 1 abner abner   8298184 mai 15 14:37 clip_20170612T083546_Sigma0_VH_db.jpg
-    -rw-r--r-- 1 abner abner 228341788 mai 14 11:18 clip_20170612T083546_Sigma0_VH_db.tif
-    -rw-rw-r-- 1 abner abner 231710599 mai 27 07:59 clip_20170612T083546_Sigma0_VV_db.tif
-    -rw-rw-r-- 1 abner abner 228275958 mai 11 10:27 clip_20170624T083547_Sigma0_VH_db.tif
-    -rw-rw-r-- 1 abner abner 231557786 mai 11 10:27 clip_20170624T083547_Sigma0_VV_db.tif
-    -rw-r--r-- 1 abner abner 228918854 mai 11 17:15 clip_20180315T083548_Sigma0_VH_db.tif
-    drwxr-xr-x 2 abner abner      4096 mai 27 11:31 false
-    drwxr-xr-x 2 abner abner      4096 mai 27 11:28 true
+    total 1353008
+    -rw-r--r-- 1 guilherme guilherme 228341788 Jun 12 21:04 'clip_20170612T083546_Sigma0_VH_db (1).tif'
+    -rw-r--r-- 1 guilherme guilherme   8297339 Jun 12 21:04  clip_20170612T083546_Sigma0_VH_db.jpg
+    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 21:04  clip_20170612T083546_Sigma0_VH_db.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 228341788 May 14 11:18  clip_20170612T083546_Sigma0_VH_db.tif
+    -rw-rw-r-- 1 guilherme guilherme 231710599 May 27 07:59  clip_20170612T083546_Sigma0_VV_db.tif
+    -rw-rw-r-- 1 guilherme guilherme 228275958 May 11 10:27  clip_20170624T083547_Sigma0_VH_db.tif
+    -rw-rw-r-- 1 guilherme guilherme 231557786 May 11 10:27  clip_20170624T083547_Sigma0_VV_db.tif
+    -rw-r--r-- 1 guilherme guilherme 228918854 May 11 17:15  clip_20180315T083548_Sigma0_VH_db.tif
+    drwxr-xr-x 2 guilherme guilherme      4096 Jun 12 21:06  false
+    drwxr-xr-x 2 guilherme guilherme      4096 Jun 12 21:05  true
 
     data/input/train/false:
-    total 856928
-    -rw-r--r-- 1 abner abner 835637688 mai 27 11:30 geotifs.zip
-    -rw-r--r-- 1 abner abner  41848673 mai 27 11:31 jpgs.zip
+    total 1651376
+    -rw-r--r-- 1 guilherme guilherme   2871689 Jun 12 21:06 image10.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:06 image10.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image10.tif
+    -rw-r--r-- 1 guilherme guilherme   3782439 Jun 12 21:06 image11.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:06 image11.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image11.tif
+    -rw-r--r-- 1 guilherme guilherme   4025493 Jun 12 21:06 image12.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:06 image12.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image12.tif
+    -rw-r--r-- 1 guilherme guilherme   5155462 Jun 12 21:06 image13.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:06 image13.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image13.tif
+    -rw-r--r-- 1 guilherme guilherme   2997222 Jun 12 21:06 image14.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:06 image14.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image14.tif
+    -rw-r--r-- 1 guilherme guilherme   1965034 Jun 12 21:05 image1.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:05 image1.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image1.tif
+    -rw-r--r-- 1 guilherme guilherme   2143385 Jun 12 21:05 image2.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:05 image2.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image2.tif
+    -rw-r--r-- 1 guilherme guilherme   2847540 Jun 12 21:05 image3.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:05 image3.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image3.tif
+    -rw-r--r-- 1 guilherme guilherme   3999678 Jun 12 21:05 image4.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:05 image4.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image4.tif
+    -rw-r--r-- 1 guilherme guilherme   4058218 Jun 12 21:05 image5.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:05 image5.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image5.tif
+    -rw-r--r-- 1 guilherme guilherme   2764875 Jun 12 21:06 image6.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:06 image6.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image6.tif
+    -rw-r--r-- 1 guilherme guilherme   2331207 Jun 12 21:06 image7.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:06 image7.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image7.tif
+    -rw-r--r-- 1 guilherme guilherme   2215435 Jun 12 21:06 image8.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:06 image8.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image8.tif
+    -rw-r--r-- 1 guilherme guilherme   2387198 Jun 12 21:06 image9.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:06 image9.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image9.tif
 
     data/input/train/true:
-    total 1168760
-    -rw-r--r-- 1 abner abner 1151611114 mai 27 11:27 geotifs.zip
-    -rw-r--r-- 1 abner abner   45190244 mai 27 11:28 jpgs.zip
+    total 1751248
+    -rw-r--r-- 1 guilherme guilherme    297819 Jun 12 21:05 image10.jpg
+    -rw-r--r-- 1 guilherme guilherme      1194 Jun 12 21:05 image10.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117589085 Jun  4  2018 image10.tif
+    -rw-r--r-- 1 guilherme guilherme   7300659 Jun 12 21:05 image11.jpg
+    -rw-r--r-- 1 guilherme guilherme      1206 Jun 12 21:05 image11.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme  58825766 Jun  4  2018 image11.tif
+    -rw-r--r-- 1 guilherme guilherme   8297339 Jun 12 21:04 image1.jpg
+    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 21:04 image1.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 228341788 May 14 11:18 image1.tif
+    -rw-r--r-- 1 guilherme guilherme   8064213 Jun 12 21:05 image2.jpg
+    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 21:05 image2.jpg.aux.xml
+    -rw-rw-r-- 1 guilherme guilherme 231710599 May 27 07:59 image2.tif
+    -rw-r--r-- 1 guilherme guilherme   9966359 Jun 12 21:05 image3.jpg
+    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 21:05 image3.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 228918854 May 11 17:15 image3.tif
+    -rw-r--r-- 1 guilherme guilherme   7532849 Jun 12 21:05 image4.jpg
+    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 21:05 image4.jpg.aux.xml
+    -rw-rw-r-- 1 guilherme guilherme 231557786 May 11 10:27 image4.tif
+    -rw-r--r-- 1 guilherme guilherme   7530780 Jun 12 21:05 image5.jpg
+    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 21:05 image5.jpg.aux.xml
+    -rw-rw-r-- 1 guilherme guilherme 228275958 May 11 10:27 image5.tif
+    -rw-r--r-- 1 guilherme guilherme    295697 Jun 12 21:05 image6.jpg
+    -rw-r--r-- 1 guilherme guilherme      1194 Jun 12 21:05 image6.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117743705 Jun  4  2018 image6.tif
+    -rw-r--r-- 1 guilherme guilherme    274931 Jun 12 21:05 image7.jpg
+    -rw-r--r-- 1 guilherme guilherme      1172 Jun 12 21:05 image7.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117743683 Jun  4  2018 image7.tif
+    -rw-r--r-- 1 guilherme guilherme   6144049 Jun 12 21:05 image8.jpg
+    -rw-r--r-- 1 guilherme guilherme      1206 Jun 12 21:05 image8.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme  58903076 Jun  4  2018 image8.tif
+    -rw-r--r-- 1 guilherme guilherme    273717 Jun 12 21:05 image9.jpg
+    -rw-r--r-- 1 guilherme guilherme      1172 Jun 12 21:05 image9.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117589063 Jun  4  2018 image9.tif
 
 
 
@@ -624,16 +758,34 @@ for i in range(14):
 !ls -l data/input/validation/true
 ```
 
-    total 2020720
-    -rw-rw-r-- 1 abner abner 230180639 mai 27 15:27 image1.tif
-    -rw-rw-r-- 1 abner abner 233288867 mai 27 15:27 image2.tif
-    -rw-rw-r-- 1 abner abner 230717127 mai 27 15:24 image3.tif
-    -rw-rw-r-- 1 abner abner 233672094 mai 27 15:25 image4.tif
-    -rw-rw-r-- 1 abner abner 228496143 mai 27 15:19 image5.tif
-    -rw-rw-r-- 1 abner abner 226850973 mai 27 15:21 image6.tif
-    -rw-rw-r-- 1 abner abner 229910342 mai 27 15:21 image7.tif
-    -rw-rw-r-- 1 abner abner 229693774 mai 27 15:23 image8.tif
-    -rw-rw-r-- 1 abner abner 226351595 mai 27 15:23 image9.tif
+    total 2104560
+    -rw-r--r-- 1 guilherme guilherme   7871698 Jun 12 20:31 image1.jpg
+    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:31 image1.jpg.aux.xml
+    -rw-rw-r-- 1 guilherme guilherme 230180639 May 27 15:27 image1.tif
+    -rw-r--r-- 1 guilherme guilherme   7862518 Jun 12 20:31 image2.jpg
+    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:31 image2.jpg.aux.xml
+    -rw-rw-r-- 1 guilherme guilherme 233288867 May 27 15:27 image2.tif
+    -rw-r--r-- 1 guilherme guilherme   8185099 Jun 12 20:31 image3.jpg
+    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:31 image3.jpg.aux.xml
+    -rw-rw-r-- 1 guilherme guilherme 230717127 May 27 15:24 image3.tif
+    -rw-r--r-- 1 guilherme guilherme   8318538 Jun 12 20:31 image4.jpg
+    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:31 image4.jpg.aux.xml
+    -rw-rw-r-- 1 guilherme guilherme 233672094 May 27 15:25 image4.tif
+    -rw-r--r-- 1 guilherme guilherme  10049028 Jun 12 20:32 image5.jpg
+    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:32 image5.jpg.aux.xml
+    -rw-rw-r-- 1 guilherme guilherme 228496143 May 27 15:19 image5.tif
+    -rw-r--r-- 1 guilherme guilherme  10357406 Jun 12 20:32 image6.jpg
+    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:32 image6.jpg.aux.xml
+    -rw-rw-r-- 1 guilherme guilherme 226850973 May 27 15:21 image6.tif
+    -rw-r--r-- 1 guilherme guilherme   9850587 Jun 12 20:32 image7.jpg
+    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:32 image7.jpg.aux.xml
+    -rw-rw-r-- 1 guilherme guilherme 229910342 May 27 15:21 image7.tif
+    -rw-r--r-- 1 guilherme guilherme  11412402 Jun 12 20:32 image8.jpg
+    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:32 image8.jpg.aux.xml
+    -rw-rw-r-- 1 guilherme guilherme 229693774 May 27 15:23 image8.tif
+    -rw-r--r-- 1 guilherme guilherme  11925993 Jun 12 20:32 image9.jpg
+    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:32 image9.jpg.aux.xml
+    -rw-rw-r-- 1 guilherme guilherme 226351595 May 27 15:23 image9.tif
 
 
 
@@ -659,21 +811,49 @@ for i in range(9):
 !ls -l data/input/validation/false
 ```
 
-    total 1608772
-    -rw-r--r-- 1 abner abner 117589091 jun  4  2018 image10.tif
-    -rw-r--r-- 1 abner abner 117589091 jun  4  2018 image11.tif
-    -rw-r--r-- 1 abner abner 117589091 jun  4  2018 image12.tif
-    -rw-r--r-- 1 abner abner 117589091 jun  4  2018 image13.tif
-    -rw-r--r-- 1 abner abner 117589091 jun  4  2018 image14.tif
-    -rw-r--r-- 1 abner abner 117743711 jun  4  2018 image1.tif
-    -rw-r--r-- 1 abner abner 117743711 jun  4  2018 image2.tif
-    -rw-r--r-- 1 abner abner 117743711 jun  4  2018 image3.tif
-    -rw-r--r-- 1 abner abner 117743711 jun  4  2018 image4.tif
-    -rw-r--r-- 1 abner abner 117743711 jun  4  2018 image5.tif
-    -rw-r--r-- 1 abner abner 117743711 jun  4  2018 image6.tif
-    -rw-r--r-- 1 abner abner 117743711 jun  4  2018 image7.tif
-    -rw-r--r-- 1 abner abner 117589091 jun  4  2018 image8.tif
-    -rw-r--r-- 1 abner abner 117589091 jun  4  2018 image9.tif
+    total 1660528
+    -rw-r--r-- 1 guilherme guilherme   3268609 Jun 12 20:33 image10.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:33 image10.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image10.tif
+    -rw-r--r-- 1 guilherme guilherme   3263234 Jun 12 20:33 image11.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:33 image11.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image11.tif
+    -rw-r--r-- 1 guilherme guilherme   3381101 Jun 12 20:33 image12.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:33 image12.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image12.tif
+    -rw-r--r-- 1 guilherme guilherme   4546254 Jun 12 20:33 image13.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:33 image13.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image13.tif
+    -rw-r--r-- 1 guilherme guilherme   4836100 Jun 12 20:33 image14.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:33 image14.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image14.tif
+    -rw-r--r-- 1 guilherme guilherme   3240131 Jun 12 20:32 image1.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:32 image1.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image1.tif
+    -rw-r--r-- 1 guilherme guilherme   3241932 Jun 12 20:32 image2.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:32 image2.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image2.tif
+    -rw-r--r-- 1 guilherme guilherme   3366261 Jun 12 20:32 image3.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:32 image3.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image3.tif
+    -rw-r--r-- 1 guilherme guilherme   3580752 Jun 12 20:32 image4.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:32 image4.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image4.tif
+    -rw-r--r-- 1 guilherme guilherme   4218408 Jun 12 20:32 image5.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:32 image5.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image5.tif
+    -rw-r--r-- 1 guilherme guilherme   4981837 Jun 12 20:32 image6.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:32 image6.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image6.tif
+    -rw-r--r-- 1 guilherme guilherme   4651111 Jun 12 20:32 image7.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:32 image7.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image7.tif
+    -rw-r--r-- 1 guilherme guilherme   3189797 Jun 12 20:33 image8.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:33 image8.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image8.tif
+    -rw-r--r-- 1 guilherme guilherme   3152223 Jun 12 20:33 image9.jpg
+    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:33 image9.jpg.aux.xml
+    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image9.tif
 
 
 
@@ -750,27 +930,40 @@ print("Total training images:", total_train)
 print("Total validation images:", total_val)
 ```
 
-    total training false images: 28
-    total training true images: 22
+    total training false images: 42
+    total training true images: 33
     total validation false images: 42
-    total validation true images: 18
+    total validation true images: 27
     --
-    Total training images: 50
-    Total validation images: 60
+    Total training images: 75
+    Total validation images: 69
 
 
 
 ```python
 batch_size = 10
-epochs = 5
+epochs = 4
 IMG_HEIGHT = 150
 IMG_WIDTH = 150
 ```
 
 
 ```python
-train_image_generator = ImageDataGenerator(rescale=1./255) # Generator for our training data
-validation_image_generator = ImageDataGenerator(rescale=1./255) # Generator for our validation data
+# Generator for our training data
+train_image_generator = ImageDataGenerator(
+    rescale=1./255,
+    horizontal_flip=True,  # Inverte a imagem
+    zoom_range=0.4,  # Aplica zoom
+    rotation_range=45,  # Rotaciona
+    width_shift_range=.1,  # Estica horizontalmente a imagem
+    height_shift_range=.11,  # Estica verticalmente a imagem
+)
+# Vale ressaltar que estas modificações nas imagens ocorrem durante as epochs
+# e ajudam a evitar que o modelo tenha sido treinado com duas imagens iguais
+# Então, teoricamente possuímos mais imagens de teste
+
+# Generator for our validation data
+validation_image_generator = ImageDataGenerator(rescale=1./255)
 ```
 
 
@@ -824,19 +1017,38 @@ def plotImages(images_arr):
 plotImages(sample_training_images[:5])
 ```
 
+
 <p align = "center">
-  <img width = "600px" src = "./docs/assets/output_42_0.png">
+  <img src = "./docs/assets/output_42_0.png">
 </p>
+
+
+```python
+augmented_images = [train_data_gen[0][0][1] for i in range(5)]
+```
+
+
+```python
+plotImages(augmented_images)
+```
+
+<p align = "center">
+  <img src = "./docs/assets/output_44_0.png">
+</p>
+
 
 
 ```python
 model = Sequential([
     Conv2D(16, 3, padding='same', activation='relu', input_shape=(IMG_HEIGHT, IMG_WIDTH ,3)),
     MaxPooling2D(),
+    Dropout(0.2),
     Conv2D(32, 3, padding='same', activation='relu'),
     MaxPooling2D(),
+    Dropout(0.1),
     Conv2D(64, 3, padding='same', activation='relu'),
     MaxPooling2D(),
+    Dropout(0.1),
     Flatten(),
     Dense(512, activation='relu'),
     Dense(1)
@@ -857,27 +1069,33 @@ model.compile(
 model.summary()
 ```
 
-    Model: "sequential_1"
+    Model: "sequential"
     _________________________________________________________________
     Layer (type)                 Output Shape              Param #
     =================================================================
-    conv2d_3 (Conv2D)            (None, 150, 150, 16)      448
+    conv2d (Conv2D)              (None, 150, 150, 16)      448
     _________________________________________________________________
-    max_pooling2d_3 (MaxPooling2 (None, 75, 75, 16)        0
+    max_pooling2d (MaxPooling2D) (None, 75, 75, 16)        0
     _________________________________________________________________
-    conv2d_4 (Conv2D)            (None, 75, 75, 32)        4640
+    dropout (Dropout)            (None, 75, 75, 16)        0
     _________________________________________________________________
-    max_pooling2d_4 (MaxPooling2 (None, 37, 37, 32)        0
+    conv2d_1 (Conv2D)            (None, 75, 75, 32)        4640
     _________________________________________________________________
-    conv2d_5 (Conv2D)            (None, 37, 37, 64)        18496
+    max_pooling2d_1 (MaxPooling2 (None, 37, 37, 32)        0
     _________________________________________________________________
-    max_pooling2d_5 (MaxPooling2 (None, 18, 18, 64)        0
+    dropout_1 (Dropout)          (None, 37, 37, 32)        0
     _________________________________________________________________
-    flatten_1 (Flatten)          (None, 20736)             0
+    conv2d_2 (Conv2D)            (None, 37, 37, 64)        18496
     _________________________________________________________________
-    dense_2 (Dense)              (None, 512)               10617344
+    max_pooling2d_2 (MaxPooling2 (None, 18, 18, 64)        0
     _________________________________________________________________
-    dense_3 (Dense)              (None, 1)                 513
+    dropout_2 (Dropout)          (None, 18, 18, 64)        0
+    _________________________________________________________________
+    flatten (Flatten)            (None, 20736)             0
+    _________________________________________________________________
+    dense (Dense)                (None, 512)               10617344
+    _________________________________________________________________
+    dense_1 (Dense)              (None, 1)                 513
     =================================================================
     Total params: 10,641,441
     Trainable params: 10,641,441
@@ -889,25 +1107,80 @@ model.summary()
 ```python
 history = model.fit_generator(
     train_data_gen,
-    steps_per_epoch=total_train // batch_size,
+    steps_per_epoch=total_val // batch_size,  # total_train
     epochs=epochs,
     validation_data=val_data_gen,
     validation_steps=total_val // batch_size
 )
 ```
 
-    Epoch 1/5
-    5/5 [==============================] - 988s 198s/step - loss: 1.5733 - accuracy: 0.4960 - val_loss: 3.9526 - val_accuracy: 0.0000e+00
+    WARNING:tensorflow:From <ipython-input-48-bc7c196dd375>:6: Model.fit_generator (from tensorflow.python.keras.engine.training) is deprecated and will be removed in a future version.
+    Instructions for updating:
+    Please use Model.fit, which supports generators.
+    Epoch 1/4
+    4/4 [==============================] - 153s 38s/step - loss: 1.3653 - accuracy: 0.6000 - val_loss: 0.1966 - val_accuracy: 0.0000e+00
+    Epoch 2/4
+    4/4 [==============================] - 144s 36s/step - loss: 0.6799 - accuracy: 0.5250 - val_loss: 1.2178 - val_accuracy: 0.0000e+00
+    Epoch 3/4
+    4/4 [==============================] - 151s 38s/step - loss: 0.5490 - accuracy: 0.5500 - val_loss: 1.1076 - val_accuracy: 0.0000e+00
+    Epoch 4/4
+    4/4 [==============================] - 158s 40s/step - loss: 0.5802 - accuracy: 0.6000 - val_loss: 0.8831 - val_accuracy: 0.0000e+00
 
 
-    Exception ignored in: <bound method IteratorResourceDeleter.__del__ of <tensorflow.python.data.ops.iterator_ops.IteratorResourceDeleter object at 0x7f95b8569710>>
-    Traceback (most recent call last):
-      File "/home/abner/miniconda3/envs/neural-networks/lib/python3.6/site-packages/tensorflow/python/data/ops/iterator_ops.py", line 538, in __del__
-        handle=self._handle, deleter=self._deleter)
-      File "/home/abner/miniconda3/envs/neural-networks/lib/python3.6/site-packages/tensorflow/python/ops/gen_dataset_ops.py", line 1139, in delete_iterator
-        tld.op_callbacks, handle, deleter)
-    KeyboardInterrupt:
+
+```python
+acc = history.history['accuracy']
+val_acc = history.history['val_accuracy']
+loss=history.history['loss']
+val_loss=history.history['val_loss']
+
+```
 
 
-    Epoch 2/5
-    4/5 [=======================>......] - ETA: 56s - loss: 0.7279 - accuracy: 0.5850
+```python
+epochs_range = range(epochs)
+```
+
+
+```python
+plt.figure(figsize=(8, 8))
+plt.subplot(1, 2, 1)
+plt.plot(epochs_range, acc, label='Training Accuracy')
+plt.plot(epochs_range, val_acc, label='Validation Accuracy')
+plt.legend(loc='lower right')
+plt.title('Training and Validation Accuracy')
+
+```
+
+
+
+
+    Text(0.5, 1.0, 'Training and Validation Accuracy')
+
+
+
+<p align = "center">
+  <img src = "./docs/assets/output_51_1.png">
+</p>
+
+
+
+```python
+plt.subplot(1, 2, 2)
+plt.plot(epochs_range, loss, label='Training Loss')
+plt.plot(epochs_range, val_loss, label='Validation Loss')
+plt.legend(loc='upper right')
+plt.title('Training and Validation Loss')
+plt.show()
+
+```
+
+<p align = "center">
+  <img src = "./docs/assets/output_52_0.png">
+</p>
+
+
+
+```python
+
+```
