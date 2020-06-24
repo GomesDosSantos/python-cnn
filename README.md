@@ -5,6 +5,10 @@
 [![Tensorflow](https://img.shields.io/badge/tensorflow-2.1-green)](https://www.tensorflow.org/)
 [![JupyterLab](https://img.shields.io/badge/jupyter-1.0-green)](https://jupyter.org/)
 
+<p align = "center">
+    <iframe width="560" height="315" src="https://youtu.be/sMWTXzVSrQI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</p>
+
 O sistema deve reconhecer áreas de talhões (unidade mínima de cultivo de uma propriedade) em um mapa, utilizando dados multitemporais, através de inteligência artificial, a interface gráfica (Web GIS), deve permitir ao usuário selecionar um intervalo de tempo e as imagens de um catálogo disponível para a região selecionada, carregando-as em bloco para não sobrecarregar o sistema e ter opção para download.
 
 Web GIS (Web Geographic Information System): Portal de um “Sistema de Informação Geográfica” (SIG), baseado em padrão de serviços web OGC, fornecendo uma estrutura para visualização e navegação de mapas (basemaps) e de dados geográficos vetoriais e matriciais.
@@ -99,8 +103,12 @@ data/
 
 
 ```python
-# !pip install tensorflow numpy matplotlib pillow wget rasterio geopandas
+!pip install tensorflow numpy matplotlib pillow wget rasterio geopandas
 ```
+
+### Importação das bibliotecas
+
+Importando as bibliotecas necessárias para a criação do modelo utilizando o _tensorflow_ e o _keras_.
 
 
 ```python
@@ -116,10 +124,12 @@ import tensorflow as tf
 ```python
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Conv2D, Flatten, Dropout, MaxPooling2D
+from tensorflow.keras.preprocessing import image
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 ```
 
 
@@ -128,6 +138,12 @@ import matplotlib.pyplot as plt
 from services.georasters import Georaster
 from services.vector import Vector
 ```
+
+### Recuperação de imagens
+
+Utilizando a abstração criada [_Georaster_](./https://github.com/ProjetoIntegradorADSFatec/python-cnn/blob/master/services/georasters.py) para recuperar imagens de sensoriamento remoto do servidor _FTP_ do INPE com o Sentinel-1.
+
+Identificando as principais propriedades das imagens e conhecendo os dados antes do pocessamento.
 
 
 ```python
@@ -205,13 +221,9 @@ data.georaster.read(1)
 data.jpg
 ```
 
-
-
 <p align = "center">
-  <img width = "600px" src = "./docs/assets/output_12_0.png">
+  <img width = "600px" src = "./docs/assets/output_14_0.png">
 </p>
-
-
 
 ```python
 for coords in data.geom.get('coordinates'):
@@ -255,10 +267,8 @@ data_geom
 ```
 
 
-
-
 <p align = "left">
-  <img width = "50px" src = "./docs/assets/output_16_0.svg">
+  <img width = "60px" src = "./docs/assets/output_18_0.svg">
 </p>
 
 
@@ -487,6 +497,10 @@ shapes.covers.head(5)
 
 
 
+### Visualizando os dados
+
+Visualizando os dados de entrada para a identificação dos talhões em uma imagen georreferenciada.
+
 
 ```python
 shapes.lem.plot(color = 'black', edgecolor = 'black', figsize = (8, 8))
@@ -501,7 +515,7 @@ shapes.lem.plot(color = 'black', edgecolor = 'black', figsize = (8, 8))
 
 
 <p align = "center">
-  <img width = "600px" src = "./docs/assets/output_20_1.png">
+  <img width = "600px" src = "./docs/assets/output_23_1.png">
 </p>
 
 
@@ -517,9 +531,13 @@ shapes.covers.plot(color = 'white', edgecolor = 'black', figsize = (8, 8))
 
 
 <p align = "center">
-  <img width = "600px" src = "./docs/assets/output_21_1.png">
+  <img width = "600px" src = "./docs/assets/output_24_1.png">
 </p>
 
+
+### Convertendo as imagens
+
+Convertendo as imagens em um formato _jpg_ para ser consumido pelo treinamento do modelo.
 
 
 ```python
@@ -894,6 +912,10 @@ PATH
 
 
 
+### Iniciando as variáveis para a criação do modelo
+
+Iniciando as variáveis para a identificação dos dados de treinamento e validação.
+
 
 ```python
 train_dir = os.path.join(PATH, 'train')
@@ -919,6 +941,8 @@ num_true_val = len(os.listdir(validation_true_dir))
 total_train = num_false_tr + num_true_tr
 total_val = num_false_val + num_true_val
 ```
+
+Entendendo os dados e calculando os items da base de dados.
 
 
 ```python
@@ -1019,30 +1043,14 @@ def plotImages(images_arr):
 plotImages(sample_training_images[:5])
 ```
 
-
 <p align = "center">
-  <img src = "./docs/assets/output_42_0.png">
+  <img width = "800px" src = "./docs/assets/output_48_0.png">
 </p>
-
-
-```python
-augmented_images = [train_data_gen[0][0][1] for i in range(5)]
-```
-
-
-```python
-plotImages(augmented_images)
-```
-
-<p align = "center">
-  <img src = "./docs/assets/output_44_0.png">
-</p>
-
 
 
 ```python
 model = Sequential([
-    Conv2D(16, 3, padding='same', activation='relu', input_shape=(IMG_HEIGHT, IMG_WIDTH ,3)),
+    Conv2D(16, 3, padding='same', activation='relu', input_shape=(IMG_HEIGHT, IMG_WIDTH, 3)),
     MaxPooling2D(),
     Dropout(0.2),
     Conv2D(32, 3, padding='same', activation='relu'),
@@ -1109,24 +1117,25 @@ model.summary()
 ```python
 history = model.fit_generator(
     train_data_gen,
-    steps_per_epoch=total_val // batch_size,  # total_train
+    steps_per_epoch=3,  # total_train
     epochs=epochs,
     validation_data=val_data_gen,
     validation_steps=total_val // batch_size
 )
 ```
 
-    WARNING:tensorflow:From <ipython-input-48-bc7c196dd375>:6: Model.fit_generator (from tensorflow.python.keras.engine.training) is deprecated and will be removed in a future version.
-    Instructions for updating:
-    Please use Model.fit, which supports generators.
     Epoch 1/4
-    4/4 [==============================] - 153s 38s/step - loss: 1.3653 - accuracy: 0.6000 - val_loss: 0.1966 - val_accuracy: 0.0000e+00
+    3/3 [==============================] - ETA: 0s - loss: 0.4429 - accuracy: 0.8667 WARNING:tensorflow:Your input ran out of data; interrupting training. Make sure that your dataset or generator can generate at least `steps_per_epoch * epochs` batches (in this case, 6 batches). You may need to use the repeat() function when building your dataset.
+    3/3 [==============================] - 123s 41s/step - loss: 0.4429 - accuracy: 0.8667 - val_loss: 0.6512 - val_accuracy: 0.0000e+00
     Epoch 2/4
-    4/4 [==============================] - 144s 36s/step - loss: 0.6799 - accuracy: 0.5250 - val_loss: 1.2178 - val_accuracy: 0.0000e+00
+    3/3 [==============================] - ETA: 0s - loss: 0.5144 - accuracy: 0.7667WARNING:tensorflow:Your input ran out of data; interrupting training. Make sure that your dataset or generator can generate at least `steps_per_epoch * epochs` batches (in this case, 6 batches). You may need to use the repeat() function when building your dataset.
+    3/3 [==============================] - 114s 38s/step - loss: 0.5144 - accuracy: 0.7667 - val_loss: 0.5831 - val_accuracy: 0.0000e+00
     Epoch 3/4
-    4/4 [==============================] - 151s 38s/step - loss: 0.5490 - accuracy: 0.5500 - val_loss: 1.1076 - val_accuracy: 0.0000e+00
+    3/3 [==============================] - ETA: 0s - loss: 0.5342 - accuracy: 0.7333WARNING:tensorflow:Your input ran out of data; interrupting training. Make sure that your dataset or generator can generate at least `steps_per_epoch * epochs` batches (in this case, 6 batches). You may need to use the repeat() function when building your dataset.
+    3/3 [==============================] - 94s 31s/step - loss: 0.5342 - accuracy: 0.7333 - val_loss: 0.2178 - val_accuracy: 0.0000e+00
     Epoch 4/4
-    4/4 [==============================] - 158s 40s/step - loss: 0.5802 - accuracy: 0.6000 - val_loss: 0.8831 - val_accuracy: 0.0000e+00
+    3/3 [==============================] - ETA: 0s - loss: 0.3281 - accuracy: 0.8667WARNING:tensorflow:Your input ran out of data; interrupting training. Make sure that your dataset or generator can generate at least `steps_per_epoch * epochs` batches (in this case, 6 batches). You may need to use the repeat() function when building your dataset.
+    3/3 [==============================] - 111s 37s/step - loss: 0.3281 - accuracy: 0.8667 - val_loss: 0.4230 - val_accuracy: 0.0000e+00
 
 
 
@@ -1161,10 +1170,10 @@ plt.title('Training and Validation Accuracy')
 
 
 
-<p align = "center">
-  <img src = "./docs/assets/output_51_1.png">
-</p>
 
+<p align = "center">
+  <img width = "200px" src = "./docs/assets/output_55_1.png">
+</p>
 
 
 ```python
@@ -1174,15 +1183,58 @@ plt.plot(epochs_range, val_loss, label='Validation Loss')
 plt.legend(loc='upper right')
 plt.title('Training and Validation Loss')
 plt.show()
-
 ```
 
 <p align = "center">
-  <img src = "./docs/assets/output_52_0.png">
+  <img width = "200px" src = "./docs/assets/output_56_0.png">
 </p>
+
+### Iniciando os testes com o modelo
+
+Testes com o modelo criado anteriormente para a identificação de talhões.
+
+
+```python
+teste = image.load_img('data/manual_test/image14.jpg', target_size=(IMG_HEIGHT, IMG_WIDTH))
+teste = image.img_to_array(teste)
+teste = np.expand_dims(teste, axis=0)
+resultado = model.predict(teste)
+plt.imshow(mpimg.imread('data/manual_test/image14.jpg'))
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f959c45dc88>
+
+
+
+
+<p align = "center">
+  <img width = "200px" src = "./docs/assets/output_58_1.png">
+</p>
+
+
+```python
+'Sim' if resultado[0][0] == 1 else 'Não'
+```
+
+
+
+
+    'Não'
+
 
 
 
 ```python
-
+train_data_gen.class_indices
 ```
+
+
+
+
+    {'false': 0, 'true': 1}
+
+
+
