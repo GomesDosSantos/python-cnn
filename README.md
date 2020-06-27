@@ -137,7 +137,7 @@ from services.vector import Vector
 
 ### Recuperação de imagens
 
-Utilizando a abstração criada [_Georaster_](./https://github.com/ProjetoIntegradorADSFatec/python-cnn/blob/master/services/georasters.py) para recuperar imagens de sensoriamento remoto do servidor _FTP_ do INPE com o Sentinel-1.
+Utilizando a abstração criada [_Georaster_](./services/georasters.py) para recuperar imagens de sensoriamento remoto do servidor _FTP_ do INPE com o Sentinel-1.
 
 Identificando as principais propriedades das imagens e conhecendo os dados antes do pocessamento.
 
