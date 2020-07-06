@@ -3,3 +3,8 @@ matplotlib
 pillow
 wget
 rasterio
+rasterstats
+geopandas
+fiona
+xarray
+keras

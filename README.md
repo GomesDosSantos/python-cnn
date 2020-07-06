@@ -99,7 +99,7 @@ data/
 
 
 ```python
-!pip install tensorflow numpy matplotlib pillow wget rasterio geopandas
+# !pip install tensorflow numpy matplotlib pillow wget rasterio geopandas xarray keras
 ```
 
 ### Importação das bibliotecas
@@ -137,7 +137,7 @@ from services.vector import Vector
 
 ### Recuperação de imagens
 
-Utilizando a abstração criada [_Georaster_](./services/georasters.py) para recuperar imagens de sensoriamento remoto do servidor _FTP_ do INPE com o Sentinel-1.
+Utilizando a abstração criada [_Georaster_](https://github.com/ProjetoIntegradorADSFatec/python-cnn/blob/master/services/georasters.py) para recuperar imagens de sensoriamento remoto do servidor _FTP_ do INPE com o Sentinel-1.
 
 Identificando as principais propriedades das imagens e conhecendo os dados antes do pocessamento.
 
@@ -152,23 +152,9 @@ data.openRemoteFile()
 ```
 
 
-
-
-    True
-
-
-
-
 ```python
 data.projection
 ```
-
-
-
-
-    'EPSG:4326'
-
-
 
 
 ```python
@@ -176,23 +162,9 @@ data.downloadRemoteFile()
 ```
 
 
-
-
-    True
-
-
-
-
 ```python
 data.convertFileToJPG()
 ```
-
-
-
-
-    True
-
-
 
 
 ```python
@@ -200,39 +172,11 @@ data.georaster.read(1)
 ```
 
 
-
-
-    array([[nan, nan, nan, ..., nan, nan, nan],
-           [nan, nan, nan, ..., nan, nan, nan],
-           [nan, nan, nan, ..., nan, nan, nan],
-           ...,
-           [nan, nan, nan, ..., nan, nan, nan],
-           [nan, nan, nan, ..., nan, nan, nan],
-           [nan, nan, nan, ..., nan, nan, nan]], dtype=float32)
-
-
-
-
-```python
-data.jpg
-```
-
-<p align = "center">
-  <img width = "600px" src = "./docs/assets/output_14_0.png">
-</p>
-
 ```python
 for coords in data.geom.get('coordinates'):
     for coord in coords:
         print(data.georaster.read(1)[int(coord[1])][int(coord[0])])
 ```
-
-    -18.735785
-    -19.409836
-    -20.503849
-    -17.980326
-    -18.735785
-
 
 
 ```python
@@ -245,45 +189,15 @@ data.geom
 ```
 
 
-
-
-    {'type': 'Polygon',
-     'coordinates': [[[-46.422421, -11.831513],
-       [-46.426524, -12.598503],
-       [-45.629512, -12.601568],
-       [-45.627701, -11.834385],
-       [-46.422421, -11.831513]]]}
-
-
-
-
 ```python
 data_geom = shapes.shape(data.geom.get('coordinates')[0])
 data_geom
 ```
 
 
-<p align = "left">
-  <img width = "60px" src = "./docs/assets/output_18_0.svg">
-</p>
-
-
-
 ```python
 data.geom
 ```
-
-
-
-
-    {'type': 'Polygon',
-     'coordinates': [[[-46.422421, -11.831513],
-       [-46.426524, -12.598503],
-       [-45.629512, -12.601568],
-       [-45.627701, -11.834385],
-       [-46.422421, -11.831513]]]}
-
-
 
 
 ```python
@@ -505,13 +419,12 @@ shapes.lem.plot(color = 'black', edgecolor = 'black', figsize = (8, 8))
 
 
 
-    <matplotlib.axes._subplots.AxesSubplot at 0x7f7440b11a20>
-
+    <matplotlib.axes._subplots.AxesSubplot at 0x7f5f6b4f97b8>
 
 
 
 <p align = "center">
-  <img width = "600px" src = "./docs/assets/output_23_1.png">
+  <img width = "600px" src = "./docs/assets/output_22_1.png">
 </p>
 
 
@@ -522,14 +435,13 @@ shapes.covers.plot(color = 'white', edgecolor = 'black', figsize = (8, 8))
 
 
 
-    <matplotlib.axes._subplots.AxesSubplot at 0x7f7440ab0438>
+    <matplotlib.axes._subplots.AxesSubplot at 0x7f5eee6a9ef0>
 
 
 
 <p align = "center">
-  <img width = "600px" src = "./docs/assets/output_24_1.png">
+  <img width = "600px" src = "./docs/assets/output_23_1.png">
 </p>
-
 
 ### Convertendo as imagens
 
@@ -540,42 +452,6 @@ Convertendo as imagens em um formato _jpg_ para ser consumido pelo treinamento d
 !ls -l data/input/train/true
 ```
 
-    total 1751248
-    -rw-r--r-- 1 guilherme guilherme    297819 Jun 12 20:30 image10.jpg
-    -rw-r--r-- 1 guilherme guilherme      1194 Jun 12 20:30 image10.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117589085 Jun  4  2018 image10.tif
-    -rw-r--r-- 1 guilherme guilherme   7300659 Jun 12 20:30 image11.jpg
-    -rw-r--r-- 1 guilherme guilherme      1206 Jun 12 20:30 image11.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme  58825766 Jun  4  2018 image11.tif
-    -rw-r--r-- 1 guilherme guilherme   8297339 Jun 12 20:30 image1.jpg
-    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:30 image1.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 228341788 May 14 11:18 image1.tif
-    -rw-r--r-- 1 guilherme guilherme   8064213 Jun 12 20:30 image2.jpg
-    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:30 image2.jpg.aux.xml
-    -rw-rw-r-- 1 guilherme guilherme 231710599 May 27 07:59 image2.tif
-    -rw-r--r-- 1 guilherme guilherme   9966359 Jun 12 20:30 image3.jpg
-    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:30 image3.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 228918854 May 11 17:15 image3.tif
-    -rw-r--r-- 1 guilherme guilherme   7532849 Jun 12 20:30 image4.jpg
-    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:30 image4.jpg.aux.xml
-    -rw-rw-r-- 1 guilherme guilherme 231557786 May 11 10:27 image4.tif
-    -rw-r--r-- 1 guilherme guilherme   7530780 Jun 12 20:30 image5.jpg
-    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:30 image5.jpg.aux.xml
-    -rw-rw-r-- 1 guilherme guilherme 228275958 May 11 10:27 image5.tif
-    -rw-r--r-- 1 guilherme guilherme    295697 Jun 12 20:30 image6.jpg
-    -rw-r--r-- 1 guilherme guilherme      1194 Jun 12 20:30 image6.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117743705 Jun  4  2018 image6.tif
-    -rw-r--r-- 1 guilherme guilherme    274931 Jun 12 20:30 image7.jpg
-    -rw-r--r-- 1 guilherme guilherme      1172 Jun 12 20:30 image7.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117743683 Jun  4  2018 image7.tif
-    -rw-r--r-- 1 guilherme guilherme   6144049 Jun 12 20:30 image8.jpg
-    -rw-r--r-- 1 guilherme guilherme      1206 Jun 12 20:30 image8.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme  58903076 Jun  4  2018 image8.tif
-    -rw-r--r-- 1 guilherme guilherme    273717 Jun 12 20:30 image9.jpg
-    -rw-r--r-- 1 guilherme guilherme      1172 Jun 12 20:30 image9.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117589063 Jun  4  2018 image9.tif
-
-
 
 ```python
 for i in range(11):
@@ -583,68 +459,10 @@ for i in range(11):
         print("Converted Image {}".format(i + 1))
 ```
 
-    Converted Image 1
-    Converted Image 2
-    Converted Image 3
-    Converted Image 4
-    Converted Image 5
-    Converted Image 6
-    Converted Image 7
-    Converted Image 8
-    Converted Image 9
-    Converted Image 10
-    Converted Image 11
-
-
 
 ```python
 !ls -l data/input/train/false
 ```
-
-    total 1651376
-    -rw-r--r-- 1 guilherme guilherme   2871689 Jun 12 20:31 image10.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:31 image10.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image10.tif
-    -rw-r--r-- 1 guilherme guilherme   3782439 Jun 12 20:31 image11.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:31 image11.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image11.tif
-    -rw-r--r-- 1 guilherme guilherme   4025493 Jun 12 20:31 image12.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:31 image12.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image12.tif
-    -rw-r--r-- 1 guilherme guilherme   5155462 Jun 12 20:31 image13.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:31 image13.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image13.tif
-    -rw-r--r-- 1 guilherme guilherme   2997222 Jun 12 20:31 image14.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:31 image14.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image14.tif
-    -rw-r--r-- 1 guilherme guilherme   1965034 Jun 12 20:30 image1.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:30 image1.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image1.tif
-    -rw-r--r-- 1 guilherme guilherme   2143385 Jun 12 20:30 image2.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:30 image2.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image2.tif
-    -rw-r--r-- 1 guilherme guilherme   2847540 Jun 12 20:31 image3.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:31 image3.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image3.tif
-    -rw-r--r-- 1 guilherme guilherme   3999678 Jun 12 20:31 image4.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:31 image4.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image4.tif
-    -rw-r--r-- 1 guilherme guilherme   4058218 Jun 12 20:31 image5.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:31 image5.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image5.tif
-    -rw-r--r-- 1 guilherme guilherme   2764875 Jun 12 20:31 image6.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:31 image6.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image6.tif
-    -rw-r--r-- 1 guilherme guilherme   2331207 Jun 12 20:31 image7.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:31 image7.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image7.tif
-    -rw-r--r-- 1 guilherme guilherme   2215435 Jun 12 20:31 image8.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:31 image8.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image8.tif
-    -rw-r--r-- 1 guilherme guilherme   2387198 Jun 12 20:31 image9.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:31 image9.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image9.tif
-
 
 
 ```python
@@ -653,156 +471,15 @@ for i in range(14):
         print("Converted Image {}".format(i + 1))
 ```
 
-    Converted Image 1
-    Converted Image 2
-    Converted Image 3
-    Converted Image 4
-    Converted Image 5
-    Converted Image 6
-    Converted Image 7
-    Converted Image 8
-    Converted Image 9
-    Converted Image 10
-    Converted Image 11
-    Converted Image 12
-    Converted Image 13
-    Converted Image 14
-
-
 
 ```python
 !ls -Rl data/input/train
 ```
 
-    data/input/train:
-    total 1353008
-    -rw-r--r-- 1 guilherme guilherme 228341788 Jun 12 21:04 'clip_20170612T083546_Sigma0_VH_db (1).tif'
-    -rw-r--r-- 1 guilherme guilherme   8297339 Jun 12 21:04  clip_20170612T083546_Sigma0_VH_db.jpg
-    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 21:04  clip_20170612T083546_Sigma0_VH_db.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 228341788 May 14 11:18  clip_20170612T083546_Sigma0_VH_db.tif
-    -rw-rw-r-- 1 guilherme guilherme 231710599 May 27 07:59  clip_20170612T083546_Sigma0_VV_db.tif
-    -rw-rw-r-- 1 guilherme guilherme 228275958 May 11 10:27  clip_20170624T083547_Sigma0_VH_db.tif
-    -rw-rw-r-- 1 guilherme guilherme 231557786 May 11 10:27  clip_20170624T083547_Sigma0_VV_db.tif
-    -rw-r--r-- 1 guilherme guilherme 228918854 May 11 17:15  clip_20180315T083548_Sigma0_VH_db.tif
-    drwxr-xr-x 2 guilherme guilherme      4096 Jun 12 21:06  false
-    drwxr-xr-x 2 guilherme guilherme      4096 Jun 12 21:05  true
-
-    data/input/train/false:
-    total 1651376
-    -rw-r--r-- 1 guilherme guilherme   2871689 Jun 12 21:06 image10.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:06 image10.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image10.tif
-    -rw-r--r-- 1 guilherme guilherme   3782439 Jun 12 21:06 image11.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:06 image11.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image11.tif
-    -rw-r--r-- 1 guilherme guilherme   4025493 Jun 12 21:06 image12.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:06 image12.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image12.tif
-    -rw-r--r-- 1 guilherme guilherme   5155462 Jun 12 21:06 image13.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:06 image13.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image13.tif
-    -rw-r--r-- 1 guilherme guilherme   2997222 Jun 12 21:06 image14.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:06 image14.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image14.tif
-    -rw-r--r-- 1 guilherme guilherme   1965034 Jun 12 21:05 image1.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:05 image1.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image1.tif
-    -rw-r--r-- 1 guilherme guilherme   2143385 Jun 12 21:05 image2.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:05 image2.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image2.tif
-    -rw-r--r-- 1 guilherme guilherme   2847540 Jun 12 21:05 image3.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:05 image3.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image3.tif
-    -rw-r--r-- 1 guilherme guilherme   3999678 Jun 12 21:05 image4.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:05 image4.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image4.tif
-    -rw-r--r-- 1 guilherme guilherme   4058218 Jun 12 21:05 image5.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:05 image5.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image5.tif
-    -rw-r--r-- 1 guilherme guilherme   2764875 Jun 12 21:06 image6.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:06 image6.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image6.tif
-    -rw-r--r-- 1 guilherme guilherme   2331207 Jun 12 21:06 image7.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:06 image7.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image7.tif
-    -rw-r--r-- 1 guilherme guilherme   2215435 Jun 12 21:06 image8.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:06 image8.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image8.tif
-    -rw-r--r-- 1 guilherme guilherme   2387198 Jun 12 21:06 image9.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 21:06 image9.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image9.tif
-
-    data/input/train/true:
-    total 1751248
-    -rw-r--r-- 1 guilherme guilherme    297819 Jun 12 21:05 image10.jpg
-    -rw-r--r-- 1 guilherme guilherme      1194 Jun 12 21:05 image10.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117589085 Jun  4  2018 image10.tif
-    -rw-r--r-- 1 guilherme guilherme   7300659 Jun 12 21:05 image11.jpg
-    -rw-r--r-- 1 guilherme guilherme      1206 Jun 12 21:05 image11.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme  58825766 Jun  4  2018 image11.tif
-    -rw-r--r-- 1 guilherme guilherme   8297339 Jun 12 21:04 image1.jpg
-    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 21:04 image1.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 228341788 May 14 11:18 image1.tif
-    -rw-r--r-- 1 guilherme guilherme   8064213 Jun 12 21:05 image2.jpg
-    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 21:05 image2.jpg.aux.xml
-    -rw-rw-r-- 1 guilherme guilherme 231710599 May 27 07:59 image2.tif
-    -rw-r--r-- 1 guilherme guilherme   9966359 Jun 12 21:05 image3.jpg
-    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 21:05 image3.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 228918854 May 11 17:15 image3.tif
-    -rw-r--r-- 1 guilherme guilherme   7532849 Jun 12 21:05 image4.jpg
-    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 21:05 image4.jpg.aux.xml
-    -rw-rw-r-- 1 guilherme guilherme 231557786 May 11 10:27 image4.tif
-    -rw-r--r-- 1 guilherme guilherme   7530780 Jun 12 21:05 image5.jpg
-    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 21:05 image5.jpg.aux.xml
-    -rw-rw-r-- 1 guilherme guilherme 228275958 May 11 10:27 image5.tif
-    -rw-r--r-- 1 guilherme guilherme    295697 Jun 12 21:05 image6.jpg
-    -rw-r--r-- 1 guilherme guilherme      1194 Jun 12 21:05 image6.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117743705 Jun  4  2018 image6.tif
-    -rw-r--r-- 1 guilherme guilherme    274931 Jun 12 21:05 image7.jpg
-    -rw-r--r-- 1 guilherme guilherme      1172 Jun 12 21:05 image7.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117743683 Jun  4  2018 image7.tif
-    -rw-r--r-- 1 guilherme guilherme   6144049 Jun 12 21:05 image8.jpg
-    -rw-r--r-- 1 guilherme guilherme      1206 Jun 12 21:05 image8.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme  58903076 Jun  4  2018 image8.tif
-    -rw-r--r-- 1 guilherme guilherme    273717 Jun 12 21:05 image9.jpg
-    -rw-r--r-- 1 guilherme guilherme      1172 Jun 12 21:05 image9.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117589063 Jun  4  2018 image9.tif
-
-
 
 ```python
 !ls -l data/input/validation/true
 ```
-
-    total 2104560
-    -rw-r--r-- 1 guilherme guilherme   7871698 Jun 12 20:31 image1.jpg
-    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:31 image1.jpg.aux.xml
-    -rw-rw-r-- 1 guilherme guilherme 230180639 May 27 15:27 image1.tif
-    -rw-r--r-- 1 guilherme guilherme   7862518 Jun 12 20:31 image2.jpg
-    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:31 image2.jpg.aux.xml
-    -rw-rw-r-- 1 guilherme guilherme 233288867 May 27 15:27 image2.tif
-    -rw-r--r-- 1 guilherme guilherme   8185099 Jun 12 20:31 image3.jpg
-    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:31 image3.jpg.aux.xml
-    -rw-rw-r-- 1 guilherme guilherme 230717127 May 27 15:24 image3.tif
-    -rw-r--r-- 1 guilherme guilherme   8318538 Jun 12 20:31 image4.jpg
-    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:31 image4.jpg.aux.xml
-    -rw-rw-r-- 1 guilherme guilherme 233672094 May 27 15:25 image4.tif
-    -rw-r--r-- 1 guilherme guilherme  10049028 Jun 12 20:32 image5.jpg
-    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:32 image5.jpg.aux.xml
-    -rw-rw-r-- 1 guilherme guilherme 228496143 May 27 15:19 image5.tif
-    -rw-r--r-- 1 guilherme guilherme  10357406 Jun 12 20:32 image6.jpg
-    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:32 image6.jpg.aux.xml
-    -rw-rw-r-- 1 guilherme guilherme 226850973 May 27 15:21 image6.tif
-    -rw-r--r-- 1 guilherme guilherme   9850587 Jun 12 20:32 image7.jpg
-    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:32 image7.jpg.aux.xml
-    -rw-rw-r-- 1 guilherme guilherme 229910342 May 27 15:21 image7.tif
-    -rw-r--r-- 1 guilherme guilherme  11412402 Jun 12 20:32 image8.jpg
-    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:32 image8.jpg.aux.xml
-    -rw-rw-r-- 1 guilherme guilherme 229693774 May 27 15:23 image8.tif
-    -rw-r--r-- 1 guilherme guilherme  11925993 Jun 12 20:32 image9.jpg
-    -rw-r--r-- 1 guilherme guilherme      1089 Jun 12 20:32 image9.jpg.aux.xml
-    -rw-rw-r-- 1 guilherme guilherme 226351595 May 27 15:23 image9.tif
-
 
 
 ```python
@@ -811,66 +488,10 @@ for i in range(9):
         print("Converted Image {}".format(i + 1))
 ```
 
-    Converted Image 1
-    Converted Image 2
-    Converted Image 3
-    Converted Image 4
-    Converted Image 5
-    Converted Image 6
-    Converted Image 7
-    Converted Image 8
-    Converted Image 9
-
-
 
 ```python
 !ls -l data/input/validation/false
 ```
-
-    total 1660528
-    -rw-r--r-- 1 guilherme guilherme   3268609 Jun 12 20:33 image10.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:33 image10.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image10.tif
-    -rw-r--r-- 1 guilherme guilherme   3263234 Jun 12 20:33 image11.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:33 image11.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image11.tif
-    -rw-r--r-- 1 guilherme guilherme   3381101 Jun 12 20:33 image12.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:33 image12.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image12.tif
-    -rw-r--r-- 1 guilherme guilherme   4546254 Jun 12 20:33 image13.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:33 image13.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image13.tif
-    -rw-r--r-- 1 guilherme guilherme   4836100 Jun 12 20:33 image14.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:33 image14.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image14.tif
-    -rw-r--r-- 1 guilherme guilherme   3240131 Jun 12 20:32 image1.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:32 image1.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image1.tif
-    -rw-r--r-- 1 guilherme guilherme   3241932 Jun 12 20:32 image2.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:32 image2.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image2.tif
-    -rw-r--r-- 1 guilherme guilherme   3366261 Jun 12 20:32 image3.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:32 image3.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image3.tif
-    -rw-r--r-- 1 guilherme guilherme   3580752 Jun 12 20:32 image4.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:32 image4.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image4.tif
-    -rw-r--r-- 1 guilherme guilherme   4218408 Jun 12 20:32 image5.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:32 image5.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image5.tif
-    -rw-r--r-- 1 guilherme guilherme   4981837 Jun 12 20:32 image6.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:32 image6.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image6.tif
-    -rw-r--r-- 1 guilherme guilherme   4651111 Jun 12 20:32 image7.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:32 image7.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117743711 Jun  4  2018 image7.tif
-    -rw-r--r-- 1 guilherme guilherme   3189797 Jun 12 20:33 image8.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:33 image8.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image8.tif
-    -rw-r--r-- 1 guilherme guilherme   3152223 Jun 12 20:33 image9.jpg
-    -rw-r--r-- 1 guilherme guilherme      1195 Jun 12 20:33 image9.jpg.aux.xml
-    -rw-r--r-- 1 guilherme guilherme 117589091 Jun  4  2018 image9.tif
-
 
 
 ```python
@@ -879,34 +500,10 @@ for i in range(14):
         print("Converted Image {}".format(i + 1))
 ```
 
-    Converted Image 1
-    Converted Image 2
-    Converted Image 3
-    Converted Image 4
-    Converted Image 5
-    Converted Image 6
-    Converted Image 7
-    Converted Image 8
-    Converted Image 9
-    Converted Image 10
-    Converted Image 11
-    Converted Image 12
-    Converted Image 13
-    Converted Image 14
-
-
 
 ```python
 PATH = "data/input"
-PATH
 ```
-
-
-
-
-    'data/input'
-
-
 
 ### Iniciando as variáveis para a criação do modelo
 
@@ -1040,7 +637,7 @@ plotImages(sample_training_images[:5])
 ```
 
 <p align = "center">
-  <img width = "800px" src = "./docs/assets/output_48_0.png">
+  <img src = "./docs/assets/output_47_0.png">
 </p>
 
 
@@ -1120,18 +717,17 @@ history = model.fit_generator(
 )
 ```
 
+    WARNING:tensorflow:From <ipython-input-41-2eb3b68c85c4>:6: Model.fit_generator (from tensorflow.python.keras.engine.training) is deprecated and will be removed in a future version.
+    Instructions for updating:
+    Please use Model.fit, which supports generators.
     Epoch 1/4
-    3/3 [==============================] - ETA: 0s - loss: 0.4429 - accuracy: 0.8667 WARNING:tensorflow:Your input ran out of data; interrupting training. Make sure that your dataset or generator can generate at least `steps_per_epoch * epochs` batches (in this case, 6 batches). You may need to use the repeat() function when building your dataset.
-    3/3 [==============================] - 123s 41s/step - loss: 0.4429 - accuracy: 0.8667 - val_loss: 0.6512 - val_accuracy: 0.0000e+00
+    3/3 [==============================] - 247s 82s/step - loss: 1.5138 - accuracy: 0.5333 - val_loss: -2.7784 - val_accuracy: 0.0000e+00
     Epoch 2/4
-    3/3 [==============================] - ETA: 0s - loss: 0.5144 - accuracy: 0.7667WARNING:tensorflow:Your input ran out of data; interrupting training. Make sure that your dataset or generator can generate at least `steps_per_epoch * epochs` batches (in this case, 6 batches). You may need to use the repeat() function when building your dataset.
-    3/3 [==============================] - 114s 38s/step - loss: 0.5144 - accuracy: 0.7667 - val_loss: 0.5831 - val_accuracy: 0.0000e+00
+    3/3 [==============================] - 292s 97s/step - loss: 2.1543 - accuracy: 0.2000 - val_loss: 0.2031 - val_accuracy: 0.0000e+00
     Epoch 3/4
-    3/3 [==============================] - ETA: 0s - loss: 0.5342 - accuracy: 0.7333WARNING:tensorflow:Your input ran out of data; interrupting training. Make sure that your dataset or generator can generate at least `steps_per_epoch * epochs` batches (in this case, 6 batches). You may need to use the repeat() function when building your dataset.
-    3/3 [==============================] - 94s 31s/step - loss: 0.5342 - accuracy: 0.7333 - val_loss: 0.2178 - val_accuracy: 0.0000e+00
+    3/3 [==============================] - 149s 50s/step - loss: 0.7297 - accuracy: 0.4667 - val_loss: 0.8846 - val_accuracy: 0.0000e+00
     Epoch 4/4
-    3/3 [==============================] - ETA: 0s - loss: 0.3281 - accuracy: 0.8667WARNING:tensorflow:Your input ran out of data; interrupting training. Make sure that your dataset or generator can generate at least `steps_per_epoch * epochs` batches (in this case, 6 batches). You may need to use the repeat() function when building your dataset.
-    3/3 [==============================] - 111s 37s/step - loss: 0.3281 - accuracy: 0.8667 - val_loss: 0.4230 - val_accuracy: 0.0000e+00
+    3/3 [==============================] - 161s 54s/step - loss: 0.6469 - accuracy: 0.5000 - val_loss: 1.0150 - val_accuracy: 0.0000e+00
 
 
 
@@ -1166,9 +762,8 @@ plt.title('Training and Validation Accuracy')
 
 
 
-
-<p align = "center">
-  <img width = "200px" src = "./docs/assets/output_55_1.png">
+<p align = "left">
+  <img width = "200px" src = "./docs/assets/output_54_1.png">
 </p>
 
 
@@ -1181,8 +776,8 @@ plt.title('Training and Validation Loss')
 plt.show()
 ```
 
-<p align = "center">
-  <img width = "200px" src = "./docs/assets/output_56_0.png">
+<p align = "left">
+  <img width = "200px" src = "./docs/assets/output_55_0.png">
 </p>
 
 ### Iniciando os testes com o modelo
@@ -1191,23 +786,22 @@ Testes com o modelo criado anteriormente para a identificação de talhões.
 
 
 ```python
-teste = image.load_img('data/manual_test/image14.jpg', target_size=(IMG_HEIGHT, IMG_WIDTH))
+teste = image.load_img('data/input/validation/true/image9.jpg', target_size=(IMG_HEIGHT, IMG_WIDTH))
 teste = image.img_to_array(teste)
 teste = np.expand_dims(teste, axis=0)
 resultado = model.predict(teste)
-plt.imshow(mpimg.imread('data/manual_test/image14.jpg'))
+plt.imshow(mpimg.imread('data/input/validation/true/image9.jpg'))
 ```
 
 
 
 
-    <matplotlib.image.AxesImage at 0x7f959c45dc88>
-
+    <matplotlib.image.AxesImage at 0x7f5f693a8e10>
 
 
 
 <p align = "center">
-  <img width = "200px" src = "./docs/assets/output_58_1.png">
+  <img width = "200px" src = "./docs/assets/output_57_1.png">
 </p>
 
 
@@ -1234,3 +828,205 @@ train_data_gen.class_indices
 
 
 
+
+```python
+lem = rasterio.open('data/input/validation/true/image9.tif')
+```
+
+
+```python
+shp = gp.read_file('data/output/LEM_2017_2018_mensal_training.shp')
+```
+
+
+```python
+fig, ax = pyplot.subplots(figsize=(10,10))
+rasterio.plot.show(lem,ax=ax)
+shp.plot(ax=ax,facecolor="white", edgecolor="black")
+```
+
+
+
+
+    <matplotlib.axes._subplots.AxesSubplot at 0x7f06d7b42ba8>
+
+
+
+<p align = "center">
+  <img width = "600px" src = "./docs/assets/output_62_1.png">
+</p>
+
+### Image Processing Examples
+Using RasterIO and RasterStats to processing images from STAC service.
+
+#### Install Requirements
+Import require libraries to image processing
+
+
+```python
+!pip install rasterio rasterstats geopandas numpy
+```
+
+To retrieve image metadata, we need the [STAC abstraction](https://github.com/brazil-data-cube/bdc-stac) for [STAC Client Python](https://github.com/brazil-data-cube/stac.py). This is an implementation of the [SpatioTemporal Asset Catalog specification](https://github.com/radiantearth/stac-spec) for the Brazil Data Cube image and data cube collections
+
+
+```python
+!pip install git+git://github.com/brazil-data-cube/stac.py@b-0.8.0#egg=stac
+```
+
+#### Import Requirements
+
+
+```python
+import geopandas as gp
+import rasterio.plot
+import rasterio
+import rasterstats
+import fiona as f
+import numpy as np
+from matplotlib import pyplot
+from pprint import pprint
+from stac import STAC
+from rasterstats import zonal_stats, point_query
+```
+
+#### Selecting images
+First we will select some images from STAC Service using the [STAC Client guide](https://github.com/brazil-data-cube/stac.py/blob/master/examples/stac.ipynb) for Python users. After create an client for STAC we will retrieve some metadata to understanding the images.
+
+
+```python
+stac_client = STAC('http://brazildatacube.dpi.inpe.br/bdc-stac/0.8.0/')
+```
+
+
+```python
+collection = stac_client.collection('C4_64_16D_MED')
+```
+
+
+```python
+items = collection.get_items()
+```
+
+Downloading the images and saving the local address for later use.
+
+
+```python
+red = items.features[0].assets['red'].download()
+green = items.features[0].assets['green'].download()
+blue = items.features[0].assets['blue'].download()
+ndvi = items.features[0].assets['ndvi'].download()
+```
+
+Understanding the image values using rasterio, opening and reading band number 1.
+
+
+```python
+rasterio.open(ndvi).read(1)
+```
+
+
+
+
+    array([[7821, 7800, 7794, ..., 5711, 6363, 6609],
+           [7817, 7815, 7780, ..., 5665, 6240, 6640],
+           [7876, 7875, 7859, ..., 5845, 6188, 6626],
+           ...,
+           [6053, 5820, 6431, ..., 6565, 6579, 6655],
+           [6725, 6795, 7390, ..., 6296, 6240, 6371],
+           [7061, 7568, 7864, ..., 6240, 6049, 6202]], dtype=int16)
+
+
+
+
+```python
+ndvi
+```
+
+
+
+
+    'C4_64_16D_MED_083100_2019-12-19_2019-12-31_ndvi.tif'
+
+
+
+
+```python
+r = rasterio.open(red).read(1)
+g = rasterio.open(green).read(1)
+b = rasterio.open(blue).read(1)
+vi = rasterio.open(ndvi)
+```
+
+
+```python
+r.max()
+```
+
+
+
+
+    4369
+
+
+
+#### Opening Images
+After understanding the images metadata we will open the first image for NDVI and retrieve geometry to later use.
+
+
+```python
+def normalize(array):
+    """Normalizes numpy arrays into scale 0.0 - 1.0"""
+    array_min, array_max = array.min(), array.max()
+    return ((array - array_min)/(array_max - array_min))
+```
+
+
+```python
+rgb = np.dstack((normalize(r), normalize(g), normalize(b)))
+pyplot.imshow(rgb)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f5ee8214be0>
+
+
+
+
+<p align = "center">
+  <img width = "300px" src = "./docs/assets/output_83_1.png">
+</p>
+
+We need to convert the input data to native CRS image. Now using Shapefile.
+
+
+```python
+shp = gp.read_file('data/output/LEM_2017_2018_mensal_training.shp')
+```
+
+
+```python
+shp.crs = vi.crs.to_dict()
+shp = shp.to_crs("EPSG:4326")
+```
+
+Ploting image normalized to see the RGB image.
+
+
+```python
+fig, ax = pyplot.subplots(figsize=(15,15))
+rasterio.plot.show(vi,ax=ax)
+shp.plot(ax=ax,facecolor="green", edgecolor="black")
+```
+
+
+
+
+    <matplotlib.axes._subplots.AxesSubplot at 0x7f5ec063e240>
+
+
+<p align = "center">
+  <img width = "600px" src = "./docs/assets/output_88_1.png">
+</p>
