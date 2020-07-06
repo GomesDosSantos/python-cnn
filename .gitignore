@@ -137,3 +137,6 @@ basemap/
 
 # Zip
 *.zip
+
+# Geotiffs Downloadeds
+*.tif
